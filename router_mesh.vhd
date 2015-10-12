@@ -126,7 +126,7 @@ begin
 				Shft_In   => ii_shft_vector(i),
 				Empty_Out => ii_empty_vector(i),
 				Full_Out  => ii_full_vector(i),
-				Ready_Out => ii_ready_vector(i),
+				Ready_Out => Ready_Out(i),
 				Data_Out  => cb_data_in(i)
 			);
 	end generate;

@@ -44,6 +44,13 @@ BEGIN
  
 	Data_In_00(NORTH_ID) <= Data_In(NORTH_ID);
 	Data_In_00(EAST_ID) <= Data_In(EAST_ID);
+	Data_In_00(LOCAL_ID) <= Data_In(LOCAL_ID);
+	
+	Valid_In_00(LOCAL_ID) <= Valid_In(LOCAL_ID);
+	Ready_In_00(LOCAL_ID) <= Ready_In(LOCAL_ID);
+	Valid_In_00(LOCAL_ID) <= Valid_In(LOCAL_ID);
+	Ready_In_00(LOCAL_ID) <= Ready_In(LOCAL_ID);
+	
 	Valid_In_00(NORTH_ID) <= Valid_In(NORTH_ID);
 	Ready_In_00(NORTH_ID) <= Ready_In(NORTH_ID);
 	Valid_In_00(EAST_ID) <= Valid_In(EAST_ID);
@@ -151,9 +158,7 @@ BEGIN
    	  Data_In(LOCAL_ID) <= x"9001"; -- Local X=2 Y=1 (south)
    	  Data_In(NORTH_ID) <= x"1002"; -- North X=0 Y=1 (north)
    	  Data_In(EAST_ID)  <= x"5003"; -- East  X=1 Y=1 (local)
-   	  Data_In(WEST_ID)  <= x"7004"; -- West  X=1 Y=3 (east)
-   	  Data_In(SOUTH_ID) <= x"4005"; -- South X=1 Y=0 (west)
-    	  
+
       wait for 100 ns;	
 	  reset <= '0';
 	  Ready_In <= (others => '1');
@@ -163,25 +168,16 @@ BEGIN
 	  Data_In(LOCAL_ID) <= x"B006"; -- Local X=2 Y=3 (south)
    	  Data_In(NORTH_ID) <= x"7007"; -- North X=0 Y=1 (east)
    	  Data_In(EAST_ID)  <= x"4008"; -- East  X=1 Y=1 (west)
-   	  Data_In(WEST_ID)  <= x"3009"; -- West  X=1 Y=3 (north)
-   	  Data_In(SOUTH_ID) <= x"500A"; -- South X=1 Y=0 (local)
-	  Valid_In <= (others => '1');
 	  
 	  wait for clk_period;
 	  Data_In(LOCAL_ID) <= x"500B"; -- Local X=2 Y=3 (local)
    	  Data_In(NORTH_ID) <= x"400C"; -- North X=0 Y=1 (west)
    	  Data_In(EAST_ID)  <= x"B00D"; -- East  X=1 Y=1 (south)
-   	  Data_In(WEST_ID)  <= x"700E"; -- West  X=1 Y=3 (east)
-   	  Data_In(SOUTH_ID) <= x"300F"; -- South X=1 Y=0 (north)
-	  Valid_In <= (others => '1');
 
 	  wait for clk_period;
 	  Data_In(LOCAL_ID) <= x"1010"; -- Local X=2 Y=3 (north)
    	  Data_In(NORTH_ID) <= x"B011"; -- North X=0 Y=1 (south)
    	  Data_In(EAST_ID)  <= x"5012"; -- East  X=1 Y=1 (local)
-   	  Data_In(WEST_ID)  <= x"7013"; -- West  X=1 Y=3 (east)
-   	  Data_In(SOUTH_ID) <= x"4014"; -- South X=1 Y=0 (west)
-	  Valid_In <= (others => '1');
 	  
 	  wait for clk_period;
 	  Valid_In <= (others => '0');
