@@ -9,10 +9,11 @@ use work.logpack.all;
 
 package routerpack is
 
-	-- Mesh dimensions
+	-- NoC dimensions
 	constant ROW_LENGTH : natural := 4;
 	constant COL_LENGTH : natural := 4;
-	
+	constant ROUTER_NUM : natural := ROW_LENGTH * COL_LENGTH;
+		
 	-- Network Output Interface constant
 	constant COUNTER_WIDTH : natural := 4;
 
@@ -23,7 +24,7 @@ package routerpack is
 	constant EAST_ID  : natural := 2;
 	constant WEST_ID  : natural := 3;
 	constant SOUTH_ID : natural := 4;
-	constant ADDRESS_LENGTH : natural := f_log2(ROW_LENGTH);
+	constant ADDRESS_LENGTH : natural := f_log2(ROW_LENGTH); -- In routing logic XY 
 	
 	constant FIFO_LENGTH : natural := 16;
 	constant DATA_WIDTH : natural := 16;
@@ -44,7 +45,5 @@ package routerpack is
 end routerpack;
 
 package body routerpack is
-
-
 
 end routerpack;

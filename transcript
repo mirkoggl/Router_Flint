@@ -1,6 +1,6 @@
 # Reading C:/altera/15.0/modelsim_ase/tcl/vsim/pref.tcl
 # vsim -gui -modelsimini C:/Users/Mirko/AppData/Local/Temp/SigasiCompileCache5662483736473527289/Router_Flint/mentor/modelsim.ini work.tb_router(behavior) 
-# Start time: 14:43:12 on Oct 12,2015
+# Start time: 14:49:48 on Oct 12,2015
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -230,5 +230,5 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(0)/MuxX
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(0)/MuxX
-# End time: 14:43:44 on Oct 12,2015, Elapsed time: 0:00:32
+# End time: 14:50:30 on Oct 12,2015, Elapsed time: 0:00:42
 # Errors: 174, Warnings: 25
