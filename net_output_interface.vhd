@@ -73,7 +73,6 @@ entity net_output_interface is
 		WrEn_In  : in std_logic;								   -- Write Enable
 		
 		Full_Out  : out std_logic;								   -- Fifo Full
-		Empty_Out : out std_logic;								   -- Fifo Empty
 		Valid_Out : out std_logic;								   -- Data Output valid to connected Router Input interface
 		Data_Out  : out std_logic_vector(DATA_WIDTH - 1 downto 0)  -- Data Output
 	);
@@ -96,7 +95,6 @@ begin
 						else '0'; 
 	
 	Full_Out  <= fifo_full;
-	Empty_Out <= fifo_empty;
 	Data_Out  <= fifo_memory(conv_integer(head_pt));
 	
 

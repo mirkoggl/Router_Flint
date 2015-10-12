@@ -75,9 +75,6 @@ end entity net_input_interface;
 
 architecture RTL of net_input_interface is
 	
-	constant max_vect : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := conv_std_logic_vector(FIFO_LENGTH, f_log2(FIFO_LENGTH)+1);
-	constant min_vect : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := (others => '0');
-	
 	type fifo_type is array (0 to FIFO_LENGTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);	
 	
 	signal fifo_memory : fifo_type := (others => (others => '0'));

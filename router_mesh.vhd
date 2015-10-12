@@ -20,9 +20,11 @@ entity router_mesh is
 		Data_In   : in data_array_type;
 		Ready_Out : out std_logic_vector(CHAN_NUMBER-1 downto 0);
 		Valid_In  : in std_logic_vector(CHAN_NUMBER-1 downto 0);
+		Full_Out  : out std_logic_vector(CHAN_NUMBER-1 downto 0);
 		
 		Data_Out  : out data_array_type;
 		Valid_Out : out std_logic_vector(CHAN_NUMBER-1 downto 0);
+		Full_In   : in std_logic_vector(CHAN_NUMBER-1 downto 0);
 		Ready_In  : in std_logic_vector(CHAN_NUMBER-1 downto 0)
 	);
 end entity router_mesh;
@@ -42,7 +44,6 @@ architecture RTL of router_mesh is
     		Ready_In  : in  std_logic;
     		WrEn_In   : in  std_logic;
     		Full_Out  : out std_logic;
-    		Empty_Out : out std_logic;
     		Valid_Out : out std_logic;
     		Data_Out  : out std_logic_vector(DATA_WIDTH - 1 downto 0)
     	);
@@ -93,14 +94,11 @@ architecture RTL of router_mesh is
 	 
 	 -- Input Interface Signals
 	 signal ii_shft_vector  : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
-	 signal ii_full_vector  :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
-	 signal ii_ready_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 signal ii_empty_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 
 	 -- Output Interface Signals
 	 signal oi_wren_vector  : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
      signal oi_full_vector  :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
-     signal oi_empty_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 
 	 -- Crossbar Signals
 	 signal cb_data_in, cb_data_out : data_array_type := (others => (others => '0'));
@@ -125,7 +123,7 @@ begin
 				Valid_In  => Valid_In(i),
 				Shft_In   => ii_shft_vector(i),
 				Empty_Out => ii_empty_vector(i),
-				Full_Out  => ii_full_vector(i),
+				Full_Out  => Full_Out(i),
 				Ready_Out => Ready_Out(i),
 				Data_Out  => cb_data_in(i)
 			);
@@ -176,11 +174,10 @@ begin
   				clk       => clk,
   				reset     => reset,
   				Data_In   => cb_data_out(i),
-  				Full_In   => oi_full_vector(i),
+  				Full_In   => Full_In(i),
   				Ready_In  => Ready_In(i),
   				WrEn_In   => oi_wren_vector(i),
   				Full_Out  => oi_full_vector(i),
-  				Empty_Out => oi_empty_vector(i),
   				Valid_Out => Valid_Out(i),
   				Data_Out  => Data_Out(i)
   			);
