@@ -19,12 +19,17 @@ ARCHITECTURE behavior OF tb_router IS
     		    LOCAL_Y : natural := 1);
     	port(clk       : in  std_logic;
     		 reset     : in  std_logic;
+    		 
     		 Data_In   : in  data_array_type;
     		 Ready_Out : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
     		 Valid_In  : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
+    		 Full_Out  : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
+    		 
     		 Data_Out  : out data_array_type;
     		 Valid_Out : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
-    		 Ready_In  : in  std_logic_vector(CHAN_NUMBER - 1 downto 0));
+    		 Full_In   : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
+    		 Ready_In  : in  std_logic_vector(CHAN_NUMBER - 1 downto 0)
+    	);
     end component router_mesh;
         
 	constant LOCAL_X : natural := 1;
@@ -33,7 +38,7 @@ ARCHITECTURE behavior OF tb_router IS
    signal clk, reset : std_logic := '0';
    
    signal Data_In, Data_Out :  data_array_type := (others => (others => '0'));
-   signal Ready_Out, Ack_Out, Valid_Out, Ready_In, Valid_In :  std_logic_vector(CHAN_NUMBER - 1 downto 0) := (others => '0');
+   signal Ready_Out, Full_Out, Full_In, Valid_Out, Ready_In, Valid_In :  std_logic_vector(CHAN_NUMBER - 1 downto 0) := (others => '0');
 	
 	-- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -53,8 +58,10 @@ BEGIN
    		Data_In   => Data_In,
    		Ready_Out => Ready_Out,
    		Valid_In  => Valid_In,
+   		Full_Out  => Full_Out,
    		Data_Out  => Data_Out,
    		Valid_Out => Valid_Out,
+   		Full_In   => Full_In,
    		Ready_In  => Ready_In
    	);
  

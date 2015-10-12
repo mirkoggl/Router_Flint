@@ -1,6 +1,234 @@
 # Reading C:/altera/15.0/modelsim_ase/tcl/vsim/pref.tcl
-# vsim -gui -modelsimini C:/Users/Mirko/AppData/Local/Temp/SigasiCompileCache6633893632500503567/Router_Flint/mentor/modelsim.ini work.tb_multi_router(behavior) 
-# Start time: 12:35:32 on Oct 12,2015
-# ** Error: (vsim-3170) Could not find 'C:/Users/Mirko/AppData/Local/Temp/SigasiCompileCache6633893632500503567/Router_Flint/mentor/work.tb_multi_router(behavior)'.
+# vsim -gui -modelsimini C:/Users/Mirko/AppData/Local/Temp/SigasiCompileCache5662483736473527289/Router_Flint/mentor/modelsim.ini work.tb_router(behavior) 
+# Start time: 14:43:12 on Oct 12,2015
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.logpack(body)
+# Loading work.routerpack(body)
+# Loading work.tb_router(behavior)
+# Loading work.router_mesh(rtl)
+# Loading work.net_input_interface(rtl)
+# Loading work.router_control_unit(rtl)
+# Loading work.routing_logic_xy(rtl)
+# Loading work.crossbar(rtl)
+# Loading work.mux_n(rtl)
+# ** Warning: (vsim-3473) Component instance "OutputInterfaceX : net_output_interface" is not bound.
+#    Time: 0 ps  Iteration: 0  Region: /tb_router/uut/Output_Interface_GEN(0) File: C:/Users/Mirko/workspaceSigasi/Router_Flint/router_mesh.vhd
+# ** Warning: (vsim-3473) Component instance "OutputInterfaceX : net_output_interface" is not bound.
+#    Time: 0 ps  Iteration: 0  Region: /tb_router/uut/Output_Interface_GEN(1) File: C:/Users/Mirko/workspaceSigasi/Router_Flint/router_mesh.vhd
+# ** Warning: (vsim-3473) Component instance "OutputInterfaceX : net_output_interface" is not bound.
+#    Time: 0 ps  Iteration: 0  Region: /tb_router/uut/Output_Interface_GEN(2) File: C:/Users/Mirko/workspaceSigasi/Router_Flint/router_mesh.vhd
+# ** Warning: (vsim-3473) Component instance "OutputInterfaceX : net_output_interface" is not bound.
+#    Time: 0 ps  Iteration: 0  Region: /tb_router/uut/Output_Interface_GEN(3) File: C:/Users/Mirko/workspaceSigasi/Router_Flint/router_mesh.vhd
+# ** Warning: (vsim-3473) Component instance "OutputInterfaceX : net_output_interface" is not bound.
+#    Time: 0 ps  Iteration: 0  Region: /tb_router/uut/Output_Interface_GEN(4) File: C:/Users/Mirko/workspaceSigasi/Router_Flint/router_mesh.vhd
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Data_Out(0)(15 downto 0), and its initial value is not used.
 # 
-# Error loading design
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Data_Out(0)(15 downto 0).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Data_Out(1)(15 downto 0), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Data_Out(1)(15 downto 0).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Data_Out(2)(15 downto 0), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Data_Out(2)(15 downto 0).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Data_Out(3)(15 downto 0), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Data_Out(3)(15 downto 0).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Data_Out(4)(15 downto 0), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Data_Out(4)(15 downto 0).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Valid_Out(4), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Valid_Out(4).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Valid_Out(3), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Valid_Out(3).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Valid_Out(2), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Valid_Out(2).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Valid_Out(1), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Valid_Out(1).
+# 
+# ** Warning: (vsim-8684) No drivers exist on out port /tb_router/uut/Valid_Out(0), and its initial value is not used.
+# 
+# Therefore, simulation behavior may occur that is not in compliance with
+# 
+# the VHDL standard as the initial values come from the base signal /tb_router/Valid_Out(0).
+# 
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/Data_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 56
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/Data_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 57
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/Full_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 58
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/Ready_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 59
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/WrEn_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 60
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/Full_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 61
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/Empty_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 62
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/Valid_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 63
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/fifo_memory'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 64
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/Data_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 66
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/Data_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 67
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/Full_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 68
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/Ready_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 69
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/WrEn_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 70
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/Full_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 71
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/Empty_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 72
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/Valid_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 73
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(1)/OutputInterfaceX/fifo_memory'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 74
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/Data_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 76
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/Data_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 77
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/Full_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 78
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/Ready_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 79
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/WrEn_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 80
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/Full_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 81
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/Empty_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 82
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/Valid_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 83
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(2)/OutputInterfaceX/fifo_memory'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 84
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/Data_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 86
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/Data_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 87
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/Full_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 88
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/Ready_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 89
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/WrEn_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 90
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/Full_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 91
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/Empty_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 92
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/Valid_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 93
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(3)/OutputInterfaceX/fifo_memory'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 94
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/Data_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 96
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/Data_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 97
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/Full_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 98
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/Ready_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 99
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/WrEn_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 100
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/Full_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 101
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/Empty_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 102
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/Valid_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 103
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/fifo_memory'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 104
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 108
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 109
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 110
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 111
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 112
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 113
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 114
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 115
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 116
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 117
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 118
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 119
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_Flint\wave.do line 120
+add wave -position 3  sim:/tb_router/Data_Out
+add wave -position 4  sim:/tb_router/Ready_Out
+add wave -position 5  sim:/tb_router/Full_Out
+add wave -position 6  sim:/tb_router/Full_In
+add wave -position 7  sim:/tb_router/Valid_Out
+add wave -position 8  sim:/tb_router/Ready_In
+add wave -position 9  sim:/tb_router/Valid_In
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(4)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(4)/MuxX
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(3)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(3)/MuxX
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(2)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(2)/MuxX
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(1)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(1)/MuxX
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(0)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(0)/MuxX
+# End time: 14:43:44 on Oct 12,2015, Elapsed time: 0:00:32
+# Errors: 174, Warnings: 25

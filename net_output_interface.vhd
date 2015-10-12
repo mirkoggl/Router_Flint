@@ -96,27 +96,25 @@ begin
 	
 	Full_Out  <= fifo_full;
 	Data_Out  <= fifo_memory(conv_integer(head_pt));
+	Valid_Out <= '0' when head_pt = tail_pt		
+						else '1'; 
 	
 
 	Output_Interface_Control_Unit : process (clk, reset)
 	begin
 		if reset = '1' then
-		  Valid_Out <= '0';
 		  head_pt <= (others => '0');
 		  tail_pt <= (others => '0');
 		  fifo_memory <= (others => (others => '0'));
 		
 		elsif rising_edge(clk) then		
-		  
-		  Valid_Out <= '0';
-		  
+		  		  
 		  if WrEn_In = '1' and fifo_full = '0' then		-- Store data input
 			   fifo_memory(conv_integer(tail_pt)) <= Data_In; 
 			   tail_pt <= tail_pt + '1';
 		  end if;
 			   
 		  if fifo_empty = '0' and Full_In = '0' and Ready_In = '1' then	-- Send Fifo first element
-			   Valid_Out <= '1';
 			   head_pt <= head_pt + '1';
 		  end if;
 			    
