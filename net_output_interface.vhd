@@ -68,13 +68,13 @@ entity net_output_interface is
 		reset : in std_logic;
 		
 		Data_In  : in std_logic_vector(DATA_WIDTH - 1 downto 0);   -- Data Input
-		Full_In  : in std_logic;
-		Ready_In : in std_logic; 
-		WrEn_In  : in std_logic;									-- Write Enable
+		Full_In  : in std_logic;								   -- Full signal from connected Router Input interface	
+		Ready_In : in std_logic; 								   -- Ready signal from connected Router Input interface	
+		WrEn_In  : in std_logic;								   -- Write Enable
 		
-		Full_Out  : out std_logic;									-- Fifo Full
-		Empty_Out : out std_logic;									-- Fifo Empty
-		Valid_Out : out std_logic;									-- Data Output valid
+		Full_Out  : out std_logic;								   -- Fifo Full
+		Empty_Out : out std_logic;								   -- Fifo Empty
+		Valid_Out : out std_logic;								   -- Data Output valid to connected Router Input interface
 		Data_Out  : out std_logic_vector(DATA_WIDTH - 1 downto 0)  -- Data Output
 	);
 end entity net_output_interface;
