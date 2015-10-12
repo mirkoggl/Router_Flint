@@ -62,13 +62,13 @@ entity net_input_interface is
 		clk : in std_logic;
 		reset : in std_logic;
 		
-		Data_In : in std_logic_vector(DATA_WIDTH-1 downto 0);	-- Data Input
-		valid   : in std_logic;								    -- Data Input valid
-		shft	: in std_logic;									-- Shift enable		
+		Data_In  : in std_logic_vector(DATA_WIDTH-1 downto 0);	-- Data Input
+		Valid_In : in std_logic;								-- Data Input valid
+		Shft_In  : in std_logic;								-- Shift enable		
 		
-		ack   : out std_logic;									-- Data Input stored
-		full  : out std_logic;									-- Fifo Full
-		empty : out std_logic;									-- Fifo Empty
+		Empty_Out  : out std_logic;
+		Full_Out   : out std_logic;								-- Fifo Full
+		Ready_Out  : out std_logic;
 		Data_Out : out std_logic_vector(DATA_WIDTH-1 downto 0)  -- Data Output, to the Crossbar Data Input
 	);
 end entity net_input_interface;
@@ -92,34 +92,29 @@ begin
 	fifo_empty <= '1' when head_pt = tail_pt		
 						else '0'; 
 	
-	full <= fifo_full;
-	empty <= fifo_empty;
-	Data_Out <= fifo_memory(conv_integer(head_pt));
+	Empty_Out <= fifo_empty;
+	Full_Out  <= fifo_full;
+	Data_Out  <= fifo_memory(conv_integer(head_pt));
+	Ready_Out <= not reset;
 	
 
 	process (clk, reset)
 	begin
 		if reset = '1' then
-		  ack <= '0';
 		  head_pt <= (others => '0');
 		  tail_pt <= (others => '0');
 		  fifo_memory <= (others => (others => '0'));
 		
 		elsif rising_edge(clk) then		
-		  
-		  ack <= '0';
-		      
-		  if valid ='1' then		    -- Data input valid
-			  if fifo_full = '1' then	-- Data input cannot be stored
-				 ack <= '0';
-			  else
+					      
+		  if Valid_In ='1' then		    -- Data input valid
+			  if fifo_full = '0' then	-- Data input can be stored
 				 fifo_memory(conv_integer(tail_pt)) <= Data_In; 	-- Data input stored correctly
-				 ack <= '1';
 				 tail_pt <= tail_pt + '1';
 			  end if;
 		  end if;
 		  	
-		  if shft = '1' then			-- Top Fifo data eliminated
+		  if Shft_In = '1' then			-- Top Fifo data eliminated
 			  if fifo_empty = '0' then
 				 head_pt <= head_pt + '1';
 			  end if;

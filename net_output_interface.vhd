@@ -67,33 +67,24 @@ entity net_output_interface is
 		clk : in std_logic;
 		reset : in std_logic;
 		
-		Data_In : in std_logic_vector(DATA_WIDTH-1 downto 0);   -- Data Input
-		ack   : in std_logic;									-- Ack 
-		wren  : in std_logic;									-- Write Enable
+		Data_In  : in std_logic_vector(DATA_WIDTH - 1 downto 0);   -- Data Input
+		Full_In  : in std_logic;
+		Ready_In : in std_logic; 
+		WrEn_In  : in std_logic;									-- Write Enable
 		
-		sdone : out std_logic;									-- Store Done
-		full  : out std_logic;									-- Fifo Full
-		empty : out std_logic;									-- Fifo Empty
-		valid : out std_logic;									-- Data Output valid
-		Data_Out : out std_logic_vector(DATA_WIDTH-1 downto 0)  -- Data Output
+		Full_Out  : out std_logic;									-- Fifo Full
+		Empty_Out : out std_logic;									-- Fifo Empty
+		Valid_Out : out std_logic;									-- Data Output valid
+		Data_Out  : out std_logic_vector(DATA_WIDTH - 1 downto 0)  -- Data Output
 	);
 end entity net_output_interface;
 
 architecture RTL of net_output_interface is
 	
-	constant MAX_VECT : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := conv_std_logic_vector(FIFO_LENGTH, f_log2(FIFO_LENGTH)+1);
-	constant MIN_VECT : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := (others => '0');
-	constant MIN_COUNT : std_logic_vector(f_log2(COUNTER_WIDTH)-1 downto 0) := (others => '0');
-	constant MAX_COUNT : std_logic_vector(f_log2(COUNTER_WIDTH)-1 downto 0) := (others => '1');
-	
 	type fifo_type is array (0 to FIFO_LENGTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
-	type state_type is (idle, wait_ack); 
-	
-	signal current_s : state_type; 
-	
+		
 	signal fifo_memory : fifo_type := (others => (others => '0'));
 	signal head_pt, tail_pt : std_logic_vector(f_log2(FIFO_LENGTH)-1 downto 0) := (others => '0');	
-	signal ack_counter : std_logic_vector(f_log2(COUNTER_WIDTH)-1 downto 0) := (others => '0');
 	signal fifo_full, fifo_empty : std_logic := '0';
 	
 begin
@@ -104,55 +95,33 @@ begin
 	fifo_empty <= '1' when head_pt = tail_pt		
 						else '0'; 
 	
-	full <= fifo_full;
-	empty <= fifo_empty;
-	Data_Out <= fifo_memory(conv_integer(head_pt));
+	Full_Out  <= fifo_full;
+	Empty_Out <= fifo_empty;
+	Data_Out  <= fifo_memory(conv_integer(head_pt));
 	
 
 	Output_Interface_Control_Unit : process (clk, reset)
 	begin
 		if reset = '1' then
-		  current_s <= idle;
-		  valid <= '0';
-		  sdone <= '0';
+		  Valid_Out <= '0';
 		  head_pt <= (others => '0');
 		  tail_pt <= (others => '0');
 		  fifo_memory <= (others => (others => '0'));
 		
 		elsif rising_edge(clk) then		
 		  
-		  valid <= '0';
-		  sdone <= '0';
+		  Valid_Out <= '0';
 		  
-		  case current_s is
-		     when idle =>       
-			     if wren = '1' and fifo_full = '0' then		-- Store data input
-			      	fifo_memory(conv_integer(tail_pt)) <= Data_In; 
-			      	sdone <= '1';
-			      	tail_pt <= tail_pt + '1';
-			      	current_s <= idle;
-			    elsif fifo_empty = '0' then					-- Send Fifo first element
-			    	valid <= '1';
-					current_s <= wait_ack;
-					ack_counter <= MIN_COUNT;				-- Set Ack counter
-				 else
-					current_s <= idle;
-			     end if;   
-		
-			  when wait_ack =>      
-			    if ack = '1' then
-			    	valid <= '0';
-					head_pt <= head_pt + '1';
-					current_s <= idle;
-				elsif ack_counter = MAX_COUNT then			-- Stop waiting ack and back idle
-					current_s <= idle;
-					valid <= '0';
-				else
-					ack_counter <= ack_counter + '1';
-					valid <= '1';
-				end if;
+		  if WrEn_In = '1' and fifo_full = '0' then		-- Store data input
+			   fifo_memory(conv_integer(tail_pt)) <= Data_In; 
+			   tail_pt <= tail_pt + '1';
+		  end if;
+			   
+		  if fifo_empty = '0' and Full_In = '0' and Ready_In = '1' then	-- Send Fifo first element
+			   Valid_Out <= '1';
+			   head_pt <= head_pt + '1';
+		  end if;
 			    
-			end case;
 		
 		end if;
 	end process;

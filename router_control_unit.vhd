@@ -16,9 +16,9 @@ entity router_control_unit is
 	Port (
 		clk   : in std_logic;
 		reset : in std_logic;
-		Data_In : in data_array_type;
-		Empty_Out : in std_logic_vector(CHAN_NUMBER-1 downto 0);
-		Full_Out  : in std_logic_vector(CHAN_NUMBER-1 downto 0);
+		Data_In  : in data_array_type;
+		Empty_In : in std_logic_vector(CHAN_NUMBER-1 downto 0);
+		Full_Out : in std_logic_vector(CHAN_NUMBER-1 downto 0);
 		
 		Shft_In   : out std_logic_vector(CHAN_NUMBER-1 downto 0);
 		Wr_En_Out : out std_logic_vector(CHAN_NUMBER-1 downto 0);
@@ -77,23 +77,23 @@ begin
 			
 		    case current_s is
 		     when idle =>       
-			    if Empty_Out(LOCAL_ID) = '0' then		-- Da sostituire con selettore Round Robin
+			    if Empty_In(LOCAL_ID) = '0' then		-- Da sostituire con selettore Round Robin
 			    	current_s <= out_wren; 
 			    	xy_data_in <= Data_In(LOCAL_ID); 
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(LOCAL_ID, SEL_WIDTH);
-			    elsif Empty_Out(NORTH_ID) = '0' then
+			    elsif Empty_In(NORTH_ID) = '0' then
 			    	current_s <= out_wren;
 			    	xy_data_in <= Data_In(NORTH_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(NORTH_ID, SEL_WIDTH);
-			    elsif Empty_Out(EAST_ID) = '0' then
+			    elsif Empty_In(EAST_ID) = '0' then
 			    	current_s <= out_wren;
 			    	xy_data_in <= Data_In(EAST_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(EAST_ID, SEL_WIDTH);
-			    elsif Empty_Out(WEST_ID) = '0' then
+			    elsif Empty_In(WEST_ID) = '0' then
 			    	current_s <= out_wren;
 			    	xy_data_in <= Data_In(WEST_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(WEST_ID, SEL_WIDTH);
-			    elsif Empty_Out(SOUTH_ID) = '0' then	
+			    elsif Empty_In(SOUTH_ID) = '0' then	
 			    	current_s <= out_wren;
 			    	xy_data_in <= Data_In(SOUTH_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(SOUTH_ID, SEL_WIDTH);

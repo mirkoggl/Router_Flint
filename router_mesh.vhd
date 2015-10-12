@@ -18,57 +18,53 @@ entity router_mesh is
 		reset : in std_logic;
 		
 		Data_In   : in data_array_type;
-		Ack_Out   : out std_logic_vector(CHAN_NUMBER-1 downto 0);
+		Ready_Out : out std_logic_vector(CHAN_NUMBER-1 downto 0);
 		Valid_In  : in std_logic_vector(CHAN_NUMBER-1 downto 0);
 		
 		Data_Out  : out data_array_type;
 		Valid_Out : out std_logic_vector(CHAN_NUMBER-1 downto 0);
-		Ack_In    : in std_logic_vector(CHAN_NUMBER-1 downto 0)
+		Ready_In  : in std_logic_vector(CHAN_NUMBER-1 downto 0)
 	);
 end entity router_mesh;
 
 architecture RTL of router_mesh is
 	
-    COMPONENT net_output_interface is
-		Generic (
-			FIFO_LENGTH : natural := 16;
-			DATA_WIDTH : natural := 16
-		);
-		Port (
-			clk : in std_logic;
-			reset : in std_logic;
-			
-			Data_In : in std_logic_vector(DATA_WIDTH-1 downto 0);
-			ack   : in std_logic;
-			wren  : in std_logic;
-			
-			sdone : out std_logic;
-			full  : out std_logic;
-			empty : out std_logic;
-			valid : out std_logic;
-			Data_Out : out std_logic_vector(DATA_WIDTH-1 downto 0)
-		);
+    COMPONENT net_output_interface
+    	Generic(
+    		FIFO_LENGTH : natural := 16;
+    		DATA_WIDTH  : natural := 16
+    	);
+    	Port(
+    		clk       : in  std_logic;
+    		reset     : in  std_logic;
+    		Data_In   : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
+    		Full_In   : in  std_logic;
+    		Ready_In  : in  std_logic;
+    		WrEn_In   : in  std_logic;
+    		Full_Out  : out std_logic;
+    		Empty_Out : out std_logic;
+    		Valid_Out : out std_logic;
+    		Data_Out  : out std_logic_vector(DATA_WIDTH - 1 downto 0)
+    	);
     END COMPONENT;
 	 
-	 COMPONENT net_input_interface is
-		Generic (
-			FIFO_LENGTH : natural := 16;
-			DATA_WIDTH : natural := 16
-		);
-		Port (
-			clk : in std_logic;
-			reset : in std_logic;
-			
-			Data_In : in std_logic_vector(DATA_WIDTH-1 downto 0);
-			valid   : in std_logic;
-			shft	  : in std_logic;
-			
-			ack   : out std_logic;
-			full  : out std_logic;
-			empty : out std_logic;
-			Data_Out : out std_logic_vector(DATA_WIDTH-1 downto 0)
-		);
-	END COMPONENT;
+	 COMPONENT net_input_interface
+	 	Generic(
+	 		FIFO_LENGTH : natural := 16;
+	 		DATA_WIDTH  : natural := 16
+	 	);
+	 	Port(
+	 		clk       : in  std_logic;
+	 		reset     : in  std_logic;
+	 		Data_In   : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
+	 		Valid_In  : in  std_logic;
+	 		Shft_In   : in  std_logic;
+		    Empty_Out  : out std_logic;
+	 		Full_Out  : out std_logic;
+	 		Ready_Out : out std_logic;
+	 		Data_Out  : out std_logic_vector(DATA_WIDTH - 1 downto 0)
+	 	);
+	 END COMPONENT;
 	
 	COMPONENT crossbar
 		Port(
@@ -81,29 +77,30 @@ architecture RTL of router_mesh is
 	COMPONENT router_control_unit
 		Generic(
 			LOCAL_X : natural := 1;
-			LOCAL_Y : natural := 1);
+			LOCAL_Y : natural := 1
+		);
 		Port(
 			clk       : in  std_logic;
 			reset     : in  std_logic;
 			Data_In   : in  data_array_type;
-			Empty_Out : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
+			Empty_In  : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Full_Out  : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Shft_In   : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Wr_En_Out : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Cross_Sel : out crossbar_sel_type
 		);
-	END COMPONENT router_control_unit;
+	END COMPONENT;
 	 
 	 -- Input Interface Signals
-	 signal ii_shft_vector : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
-	 signal ii_full_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
+	 signal ii_shft_vector  : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
+	 signal ii_full_vector  :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
+	 signal ii_ready_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 signal ii_empty_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 
 	 -- Output Interface Signals
-	 signal oi_wren_vector : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
-	 signal oi_sdone_vector : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
-     signal oi_full_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
-	 signal oi_empty_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
+	 signal oi_wren_vector  : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
+     signal oi_full_vector  :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
+     signal oi_empty_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 
 	 -- Crossbar Signals
 	 signal cb_data_in, cb_data_out : data_array_type := (others => (others => '0'));
@@ -122,15 +119,15 @@ begin
 				DATA_WIDTH  => DATA_WIDTH
 			)
 			port map(
-				clk      => clk,
-				reset    => reset,
-				Data_In  => Data_In(i),
-				valid    => Valid_In(i),
-				shft     => ii_shft_vector(i),
-				ack      => Ack_Out(i),
-				full     => ii_full_vector(i),
-				empty    => ii_empty_vector(i),
-				Data_Out => cb_data_in(i)
+				clk       => clk,
+				reset     => reset,
+				Data_In   => Data_In(i),
+				Valid_In  => Valid_In(i),
+				Shft_In   => ii_shft_vector(i),
+				Empty_Out => ii_empty_vector(i),
+				Full_Out  => ii_full_vector(i),
+				Ready_Out => ii_ready_vector(i),
+				Data_Out  => cb_data_in(i)
 			);
 	end generate;
 	
@@ -139,15 +136,15 @@ begin
   -----------------------------------------------------------------------		
   
 	CU_inst : router_control_unit
-		generic map(
+		Generic Map(
 			LOCAL_X => LOCAL_X,
 			LOCAL_Y => LOCAL_Y
 		)
-		port map(
+		Port Map(
 			clk       => clk,
 			reset     => reset,
 			Data_In   => cb_data_in,
-			Empty_Out => ii_empty_vector,
+			Empty_In  => ii_empty_vector,
 			Full_Out  => oi_full_vector,
 			Shft_In   => ii_shft_vector,
 			Wr_En_Out => oi_wren_vector,
@@ -171,22 +168,22 @@ begin
   
   Output_Interface_GEN : for i in 0 to CHAN_NUMBER-1 generate
   		OutputInterfaceX : net_output_interface
-  			generic map(
+  			Generic Map(
   				FIFO_LENGTH => FIFO_LENGTH,
   				DATA_WIDTH  => DATA_WIDTH
   			)
-  			port map(
-  				clk      => clk,
-  				reset    => reset,
-  				Data_In  => cb_data_out(i),
-  				ack      => Ack_In(i),
-  				wren     => oi_wren_vector(i),
-  				sdone    => oi_sdone_vector(i),
-  				full     => oi_full_vector(i),
-  				empty    => oi_empty_vector(i),
-  				valid    => Valid_Out(i),
-  				Data_Out => Data_Out(i)
-  			);	 
+  			Port Map(
+  				clk       => clk,
+  				reset     => reset,
+  				Data_In   => cb_data_out(i),
+  				Full_In   => oi_full_vector(i),
+  				Ready_In  => Ready_In(i),
+  				WrEn_In   => oi_wren_vector(i),
+  				Full_Out  => oi_full_vector(i),
+  				Empty_Out => oi_empty_vector(i),
+  				Valid_Out => Valid_Out(i),
+  				Data_Out  => Data_Out(i)
+  			);
   end generate;
 
 end architecture RTL;
