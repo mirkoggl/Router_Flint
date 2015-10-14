@@ -70,11 +70,12 @@ architecture RTL of router_control_unit is
 		);
 	END COMPONENT;
 	
-	constant ZERO_VECT : std_logic_vector(CHAN_NUMBER - 1 downto 0) := (others => '0');
+	constant ONE_VECT : std_logic_vector(CHAN_NUMBER - 1 downto 0) := (others => '1');
 	type state_type is (idle, out_wren, out_delay); 
 	
 	-- Control Unit Signals
 	signal current_s : state_type := idle;
+	signal n_empty_in  : std_logic_vector(CHAN_NUMBER - 1 downto 0) := (others => '0');
 	signal rr_vector   : std_logic_vector(CHAN_NUMBER - 1 downto 0) := (others => '0');
 	signal rr_winner   : std_logic_vector(CHAN_NUMBER - 1 downto 0) := (others => '0');
 	signal rr_final    : std_logic_vector(CHAN_NUMBER - 1 downto 0) := (others => '0'); 
@@ -98,15 +99,19 @@ begin
 			Crossbar_Sel => Cross_Sel
 		);
 	
+	n_empty_in <= not(Empty_In);
+	
 	Shifter_Rol_inst : shifter_rol
 		Generic Map(
 			N => CHAN_NUMBER
 		)
 		Port Map(
-			vect_in   => Empty_In,
+			vect_in   => n_empty_in,
 			num_shift => CONV_INTEGER(rr_counter),
 			vect_out  => rr_vector
 		);
+	
+	rr_winner <= ((not rr_vector) + '1') and rr_vector;	
 	
 	Shifter_Ror_inst : shifter_ror
 		generic map(
@@ -137,44 +142,22 @@ begin
 			Shft_In <= (others => '0');
 			Wr_En_Out <= (others => '0');
 			
-			if rr_counter = CONV_STD_LOGIC_VECTOR(CHAN_NUMBER, SEL_WIDTH) then
+			if rr_counter = CONV_STD_LOGIC_VECTOR(CHAN_NUMBER-1, SEL_WIDTH) then
 				rr_counter <= (others => '0');
 			else
 				rr_counter <= rr_counter + '1';
 			end if;
-			
-			rr_winner <= not(rr_vector) + '1';			
-			
+					
 		    case current_s is
 		     when idle =>
 		     	
-		     	if Empty_In = ZERO_VECT then
-		     		xy_data_in <= Data_In(CONV_INTEGER(rr_index)); 
+		     	if Empty_In = ONE_VECT then	-- Selettore Round Robin
+			    	current_s <= idle;
+			    else
+			    	xy_data_in <= Data_In(CONV_INTEGER(rr_index)); 
 			    	xy_chan_in <= rr_index;
+			    	current_s <= out_wren;
 		     	end if;       
---			    if Empty_In(LOCAL_ID) = '0' then		-- Da sostituire con selettore Round Robin
---			    	current_s <= out_wren; 
---			    	xy_data_in <= Data_In(LOCAL_ID); 
---			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(LOCAL_ID, SEL_WIDTH);
---			    elsif Empty_In(NORTH_ID) = '0' then
---			    	current_s <= out_wren;
---			    	xy_data_in <= Data_In(NORTH_ID);
---			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(NORTH_ID, SEL_WIDTH);
---			    elsif Empty_In(EAST_ID) = '0' then
---			    	current_s <= out_wren;
---			    	xy_data_in <= Data_In(EAST_ID);
---			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(EAST_ID, SEL_WIDTH);
---			    elsif Empty_In(WEST_ID) = '0' then
---			    	current_s <= out_wren;
---			    	xy_data_in <= Data_In(WEST_ID);
---			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(WEST_ID, SEL_WIDTH);
---			    elsif Empty_In(SOUTH_ID) = '0' then	
---			    	current_s <= out_wren;
---			    	xy_data_in <= Data_In(SOUTH_ID);
---			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(SOUTH_ID, SEL_WIDTH);
---			    else 
---			    	current_s <= idle;
---			    end if;
 			    			
 			when out_wren =>	
 				if Full_Out(CONV_INTEGER(xy_chan_out)) = '1' then  -- Fifo Out full, scarta il pacchetto e torna idle
