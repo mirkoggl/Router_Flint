@@ -148,9 +148,9 @@ begin
 				rr_counter <= rr_counter + '1';
 			end if;
 					
-		    case current_s is
-		     when idle =>
-		     	
+			case current_s is
+				
+		     when idle =>	
 		     	if Empty_In = ONE_VECT then	-- Selettore Round Robin
 			    	current_s <= idle;
 			    else
